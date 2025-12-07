@@ -1,2 +1,6 @@
+# Deno
+build/
+public/*.js
+
 # AOC input data
 input.txt
