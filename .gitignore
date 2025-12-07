@@ -4,3 +4,4 @@ public/*.js
 
 # AOC input data
 input.txt
+test_input.txt
