@@ -6,33 +6,26 @@ let score2 = 0;
 
 const check = (pos: number) => {
   let hits = 0;
-  for (let x = -1; x <= 1 && hits < 4; x++) {
-    for (let y = -1; y <= 1 && hits < 4; y++) {
+  [-1, 0, 1].forEach(x => {
+    [-1, 0, 1].forEach(y => {
       if (!(x == 0 && y == 0) && !(pos % gridSize == 0 && x == -1) && !((pos + 1) % gridSize == 0 && x == 1)) {
         const np = pos + x + (y * gridSize);
         if (np >= 0 && np < grid.length && grid[np] == '@') {
           hits++;
         }
       }
-    }
-  }
+    });
+  });
   return hits < 4;
 }
 
-for (let i = 0; i < grid.length; i++) {
-  if (grid[i] == '@' && check(i)) {
-    score++;
-  }
-}
+
+grid.forEach((v, i) => v == '@' && check(i) ? score++ : null);
 
 const removed: Array<number> = [];
 do {
   score2 = removed.length;
-  for (let i = 0; i < grid.length; i++) {
-    if (grid[i] == '@' && check(i)) {
-      removed.push(i);
-    }
-  }
+  grid.forEach((v, i) => v == '@' && check(i) ? removed.push(i) : null);
   removed.forEach(i => grid[i] = '.');
 } while (score2 != removed.length);
 
