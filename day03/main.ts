@@ -20,11 +20,9 @@ const biggestJoltage2 = (bank: Array<string>) => {
   const retVal: Array<string> = [];
   let index: number = 0;
   while (retVal.length < 12 && index < bank.length) {
-    const bankSlice = bank.slice(index, bank.length - (11 - retVal.length));
-    const bankSliceSorted = [...bankSlice].sort((a, b) => Number(b) - Number(a));
-    const biggestJoltage = bankSliceSorted[0];
-    retVal.push(biggestJoltage);
-    index = bank.indexOf(biggestJoltage, index) + 1;
+    const bankSlice = bank.slice(index, bank.length - (11 - retVal.length)).sort((a, b) => Number(b) - Number(a));
+    retVal.push(bankSlice[0]);
+    index = bank.indexOf(bankSlice[0], index) + 1;
   }
   return Number(retVal.join(''));
 }
