@@ -26,7 +26,7 @@ const removed: Array<number> = [];
 do {
   score2 = removed.length;
   grid.forEach((v, i) => v == '@' && check(i) ? removed.push(i) : null);
-  removed.forEach(i => grid[i] = '.');
+  removed.forEach(v => grid[v] = '.');
 } while (score2 != removed.length);
 
 console.log("Part 1 answer: " + score);
