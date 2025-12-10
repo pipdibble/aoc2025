@@ -36,7 +36,6 @@ IDRanges.sort((a, b) => a.start - b.start).forEach((range => {
   start = start == null || (range.start > start) ? range.start : start;
   if (start <= range.end) {
     score2 += (range.end - start) + 1;
-    console.log(start, '-', range.end, score2);
     start = range.end + 1;
   }
 }));
