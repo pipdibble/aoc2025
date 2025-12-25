@@ -1,4 +1,4 @@
-const text: string = await Deno.readTextFile('./input.txt');
+const text: string = await Deno.readTextFile('./test_input.txt');
 
 let S: Array<number> = [0, 0];
 
@@ -16,29 +16,29 @@ const grid: Array<Array<string>> = text.split('')
 
 const covered: Array<string> = [];
 let partOneScore = 0;
-const beamMe = (x: number, y: number, p: string, a: Array<string>): Array<string> => {
+const beamMe = (x: number, y: number, beamLength: number) => {
+  console.log(beamLength);
   if (y >= grid.length || x < 0 || x >= grid[0].length || covered.indexOf(x + ':' + y) >= 0)
-    return a.concat([p]);
+    return;
   covered.push(x + ':' + y);
-  p += (">" + x + ":" + y);
   switch (grid[y][x]) {
     case '.': {
       grid[y][x] = '|';
-      return a.concat(beamMe(x, ++y, p, a));
+      beamMe(x, ++y, ++beamLength);
+      return;
     }
     case '^': {
       partOneScore++;
-      let retVal = a.concat(beamMe(x - 1, y, p, a));
-      retVal = retVal.concat(beamMe(x + 1, y, p, a));
-      return retVal;
+      beamLength++;
+      beamMe(x - 1, y, beamLength);
+      beamMe(x + 1, y, beamLength);
+      return;
     }
     default: {
-      return a.concat([p]);
+      return;
     }
   }
 };
-const routes = beamMe(S[0], S[1] + 1, '', []);
-//console.log(routes);
+beamMe(S[0], S[1] + 1, 1);
 
 console.log("Part 1 answer: " + partOneScore);
-//console.log("Part 2 answer: " + covered.length);
